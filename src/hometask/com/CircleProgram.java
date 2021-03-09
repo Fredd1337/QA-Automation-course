@@ -8,6 +8,7 @@ class FigureProgram {
     public static void main(String[] args) {
         Square sq = new Square();
         Circle cl = new Circle();
+        Comparing cp = new Comparing();
         Scanner sc = new Scanner(System.in);
         double a = 0.5;
         double b = 5;
@@ -71,8 +72,10 @@ class FigureProgram {
         sq.areaCalculator(num1, random_number1);
         cl.areaCalculator(num2, random_number2);
 
+
         sq.DecimalFormat();
         cl.DecimalFormat();
+        cp.areaCalculator(sq.area1, cl.area2);
 
     }
 }
@@ -111,4 +114,29 @@ class Circle {
          DecimalFormat df = new DecimalFormat("###.##");
          System.out.println("Площадь круга: " + (df.format(area2)));
      }
+}
+
+class Comparing {
+
+    double diagonal, radius, halfside;
+
+    //Формулы извлечения длин сторон из площади
+
+    public void areaCalculator(double area1, double area2) {
+
+    diagonal = Math.sqrt(area1 * 2);
+    radius = Math.sqrt(area2 / Math.PI);
+    halfside = Math.sqrt(area1) / 2;
+
+        if (radius <= halfside) {
+            System.out.println ("Круг поместится внутри квадрата");
+        } else {
+            System.out.println ("Круг не поместится внутри квадрата");
+        }
+        if (radius >= diagonal) {
+            System.out.println ("Квадрат поместится внутри круга");
+        } else {
+            System.out.println ("Квадрат не поместится внутри круга");
+        }
+    }
 }
