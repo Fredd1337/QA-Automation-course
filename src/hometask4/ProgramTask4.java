@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 class ProgramTask4
 {
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         String original, reverse = "";
         Scanner sc = new Scanner(System.in);
