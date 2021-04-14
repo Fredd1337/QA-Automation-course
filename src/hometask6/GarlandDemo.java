@@ -31,11 +31,9 @@ class SimpleGarland extends Garland {
 
     public SimpleGarland() {
         for (int i = 0; i < lampsCount; i++)
-            lamps.add(new Lamp()
-                    /*{
-                String State = (LightState) (i % 2);
-            }*/
-            );
+            lamps.add(new Lamp() {
+                LightState[] State = LightState.values(); //не понятно как присвоить enum значение каждому элементу массива
+            });
     }
 }
 
@@ -43,12 +41,10 @@ class ColorGarland extends Garland {
 
     public ColorGarland() {
         for (int i = 0; i < lampsCount; i++)
-            lamps.add(new ColorLamp()
-                    /*{
-                String State = (LightState) (i % 2);
-                String Color = (LightColor) (i % 4);
-            }*/
-            );
+            lamps.add(new ColorLamp() {
+                LightState[] State = LightState.values(); //не понятно как присвоить enum значение каждому элементу массива
+                LightColor[] Color = LightColor.values(); //не понятно как присвоить enum значение каждому элементу массива
+                    });
     }
 }
 
