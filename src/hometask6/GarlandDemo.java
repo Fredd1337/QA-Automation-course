@@ -2,6 +2,8 @@ package hometask6;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class GarlandDemo {
     public static void main(String[] args) {
@@ -9,6 +11,7 @@ public class GarlandDemo {
         System.out.println("Простая гирлянда: ");
         SimpleGarland sg = new SimpleGarland();
         sg.printState();
+        System.out.println();
 
         System.out.println("Цветная гирлянда: ");
         ColorGarland cg = new ColorGarland();
@@ -19,7 +22,9 @@ public class GarlandDemo {
 
 abstract class Garland {
     public List<Lamp> lamps = new ArrayList<>();
-    int lampsCount = 10;
+
+    Scanner sc = new Scanner(System.in);
+    int lampsCount = sc.nextInt();
 
     public void printState() {
         for (Lamp lamp : lamps)
@@ -27,12 +32,12 @@ abstract class Garland {
     }
 }
 
+
 class SimpleGarland extends Garland {
 
     public SimpleGarland() {
         for (int i = 0; i < lampsCount; i++)
-            lamps.add(new Lamp() {
-                LightState[] State = LightState.values(); //не понятно как присвоить enum значение каждому элементу массива
+            lamps.add(new Lamp(LightState.values()[new Random().nextInt(LightState.values().length)]) {
             });
     }
 }
@@ -41,34 +46,38 @@ class ColorGarland extends Garland {
 
     public ColorGarland() {
         for (int i = 0; i < lampsCount; i++)
-            lamps.add(new ColorLamp() {
-                LightState[] State = LightState.values(); //не понятно как присвоить enum значение каждому элементу массива
-                LightColor[] Color = LightColor.values(); //не понятно как присвоить enum значение каждому элементу массива
-                    });
+            lamps.add(new ColorLamp(LightState.values()[new Random().nextInt(LightState.values().length)],
+                    LightColor.values()[new Random().nextInt(LightColor.values().length)]) {
+            });
     }
 }
 
 class Lamp {
-    public LightState State;
+    public LightState state;
+
+    public Lamp(LightState state) {
+        this.state = state;
+    }
 
     @Override
     public String toString() {
-        return "Lamp{" +
-                "State=" + State +
-                '}';
+        return "Lamp " + "State = " + state;
     }
 }
 
 class ColorLamp extends Lamp {
-    public LightColor Color;
+    public LightColor color;
+
+    public ColorLamp(LightState state, LightColor color) {
+        super(state);
+        this.color = color;
+    }
 
     @Override
     public String toString() {
-        return "ColorLamp{" +
-                "Color=" + Color +
-                '}';
+        return "Color = " + color + " , State = " + state;
     }
 }
 
-enum LightColor { Green, Red, Yellow, Blue };
-enum LightState { Off, On };
+enum LightColor {Red, Yellow, Green, Blue}
+enum LightState {On, Off}
