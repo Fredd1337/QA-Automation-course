@@ -1,9 +1,6 @@
 package hometask6;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class GarlandDemo {
     public static void main(String[] args) {
@@ -19,7 +16,6 @@ public class GarlandDemo {
     }
 }
 
-
 abstract class Garland {
     public List<Lamp> lamps = new ArrayList<>();
 
@@ -32,13 +28,11 @@ abstract class Garland {
     }
 }
 
-
 class SimpleGarland extends Garland {
 
     public SimpleGarland() {
         for (int i = 0; i < lampsCount; i++)
-            lamps.add(new Lamp(LightState.values()[new Random().nextInt(LightState.values().length)]) {
-            });
+            lamps.add(new Lamp(Helper.setLightState()));
     }
 }
 
@@ -46,9 +40,8 @@ class ColorGarland extends Garland {
 
     public ColorGarland() {
         for (int i = 0; i < lampsCount; i++)
-            lamps.add(new ColorLamp(LightState.values()[new Random().nextInt(LightState.values().length)],
-                    LightColor.values()[new Random().nextInt(LightColor.values().length)]) {
-            });
+            lamps.add(new ColorLamp(Helper.setLightState()), //в этой строке ошибка
+                    Helper.setColor());
     }
 }
 
@@ -61,7 +54,7 @@ class Lamp {
 
     @Override
     public String toString() {
-        return "Lamp " + "State = " + state;
+        return "Lamp state = " + state.name();
     }
 }
 
@@ -75,9 +68,44 @@ class ColorLamp extends Lamp {
 
     @Override
     public String toString() {
-        return "Color = " + color + " , State = " + state;
+        return "Lamp state = " + state.name() + " , Color = " + color.name();
     }
 }
 
-enum LightColor {Red, Yellow, Green, Blue}
-enum LightState {On, Off}
+class Helper {
+    private static String lightColor;
+    private static String lightState;
+
+    public static LightState setLightState() {
+
+        Calendar calendar = new GregorianCalendar();
+        int date = calendar.get(Calendar.MINUTE);
+        System.out.println(date);
+
+        if (date%2==0) {
+            lightState = "ON";
+        }
+        else
+            lightState = "OFF";
+
+        return LightState.valueOf(lightState);
+    }
+
+    public static LightColor setColor () {
+
+        switch (lightColor) {
+            case "RED":
+                lightColor = "RED";
+            case "YELLOW":
+                lightColor = "YELLOW";
+            case "GREEN":
+                lightColor = "GREEN";
+            case "BLUE":
+                lightColor = "BLUE";
+        }
+        return LightColor.valueOf(lightColor);
+    }
+}
+
+enum LightColor {RED, YELLOW, GREEN, BLUE}
+enum LightState {ON, OFF}
