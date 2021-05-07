@@ -40,8 +40,9 @@ class ColorGarland extends Garland {
 
     public ColorGarland() {
         for (int i = 0; i < lampsCount; i++)
-            lamps.add(new ColorLamp(Helper.setLightState()), //в этой строке ошибка
-                    Helper.setColor());
+            lamps.add(new ColorLamp(Helper.setLightState(),
+                    Helper.setColor()));
+
     }
 }
 
@@ -74,7 +75,6 @@ class ColorLamp extends Lamp {
 
 class Helper {
     private static String lightColor;
-    private static String lightState;
 
     public static LightState setLightState() {
 
@@ -82,6 +82,7 @@ class Helper {
         int date = calendar.get(Calendar.MINUTE);
         System.out.println(date);
 
+        String lightState;
         if (date%2==0) {
             lightState = "ON";
         }
