@@ -39,6 +39,7 @@ class SimpleGarland extends Garland {
 class ColorGarland extends Garland {
 
     public ColorGarland() {
+
         for (int i = 0; i < lampsCount; i++)
             lamps.add(new ColorLamp(Helper.setLightState(),
                     Helper.setColor()));
@@ -60,51 +61,39 @@ class Lamp {
 }
 
 class ColorLamp extends Lamp {
-    public LightColor color;
+    public LightColor[] color;
 
-    public ColorLamp(LightState state, LightColor color) {
+    public ColorLamp(LightState state, LightColor[] color) {
         super(state);
         this.color = color;
     }
 
     @Override
     public String toString() {
-        return "Lamp state = " + state.name() + " , Color = " + color.name();
+        return "Lamp state = " + state.name() + " , Color = " + color;
     }
 }
 
 class Helper {
-    private static String lightColor;
 
     public static LightState setLightState() {
 
         Calendar calendar = new GregorianCalendar();
         int date = calendar.get(Calendar.MINUTE);
-        System.out.println(date);
 
         String lightState;
-        if (date%2==0) {
+        if (date % 2 == 0) {
             lightState = "ON";
+            return LightState.valueOf(lightState);
         }
-        else
-            lightState = "OFF";
-
+        lightState = "OFF";
         return LightState.valueOf(lightState);
     }
 
-    public static LightColor setColor () {
-
-        switch (lightColor) {
-            case "RED":
-                lightColor = "RED";
-            case "YELLOW":
-                lightColor = "YELLOW";
-            case "GREEN":
-                lightColor = "GREEN";
-            case "BLUE":
-                lightColor = "BLUE";
-        }
-        return LightColor.valueOf(lightColor);
+    public static LightColor[] setColor() {
+        LightColor[] lightColor;
+        lightColor = LightColor.values();
+        return lightColor;
     }
 }
 
