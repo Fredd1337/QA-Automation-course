@@ -61,6 +61,7 @@ class Lamp {
 }
 
 class ColorLamp extends Lamp {
+    public static Enum lightColor;
     public LightColor color;
 
     public ColorLamp(LightState state, LightColor color) {
@@ -91,18 +92,17 @@ class Helper {
     }
 
     public static LightColor setColor() {
-        LightColor lightColor = null;
-        switch (lightColor) {
-            case RED:
-                return lightColor.RED;
-            case BLUE:
-                return lightColor.BLUE;
-            case GREEN:
-                return lightColor.GREEN;
-            case YELLOW:
-                return lightColor.YELLOW;
-        }
-        return lightColor;
+            switch (ColorLamp.lightColor) {
+                case RED:
+                    return LightColor.RED;
+                case BLUE:
+                    return LightColor.BLUE;
+                case GREEN:
+                    return LightColor.GREEN;
+                case YELLOW:
+                    return LightColor.YELLOW;
+            }
+
     }
 }
 
