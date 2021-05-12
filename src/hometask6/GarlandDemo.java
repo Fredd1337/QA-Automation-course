@@ -61,7 +61,7 @@ class Lamp {
 }
 
 class ColorLamp extends Lamp {
-    public static Enum lightColor;
+    public static String lightColor;
     public LightColor color;
 
     public ColorLamp(LightState state, LightColor color) {
@@ -102,7 +102,7 @@ class Helper {
                 case YELLOW:
                     return LightColor.YELLOW;
             }
-
+        return null;
     }
 }
 
