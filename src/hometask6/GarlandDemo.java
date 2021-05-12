@@ -70,7 +70,7 @@ class ColorLamp extends Lamp {
 
     @Override
     public String toString() {
-        return "Lamp state = " + state.name() + " , Color = " + color;
+        return "Lamp state = " + state.name() + " , Color = " + Arrays.toString(color);
     }
 }
 
