@@ -61,16 +61,16 @@ class Lamp {
 }
 
 class ColorLamp extends Lamp {
-    public LightColor[] color;
+    public LightColor color;
 
-    public ColorLamp(LightState state, LightColor[] color) {
+    public ColorLamp(LightState state, LightColor color) {
         super(state);
         this.color = color;
     }
 
     @Override
     public String toString() {
-        return "Lamp state = " + state.name() + " , Color = " + Arrays.toString(color);
+        return "Lamp state = " + state.name() + " , Color = " + color.name();
     }
 }
 
@@ -90,9 +90,18 @@ class Helper {
         return LightState.valueOf(lightState);
     }
 
-    public static LightColor[] setColor() {
-        LightColor[] lightColor;
-        lightColor = LightColor.values();
+    public static LightColor setColor() {
+        LightColor lightColor = null;
+        switch (lightColor) {
+            case RED:
+                return lightColor.RED;
+            case BLUE:
+                return lightColor.BLUE;
+            case GREEN:
+                return lightColor.GREEN;
+            case YELLOW:
+                return lightColor.YELLOW;
+        }
         return lightColor;
     }
 }
