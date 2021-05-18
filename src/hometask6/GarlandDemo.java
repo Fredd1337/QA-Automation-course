@@ -31,8 +31,9 @@ abstract class Garland {
 class SimpleGarland extends Garland {
 
     public SimpleGarland() {
-        for (int i = 0; i < lampsCount; i++)
-            lamps.add(new Lamp(Helper.setLightState()));
+        for (int i = 0; i < lampsCount; i++) {
+            lamps.add(new Lamp(Helper.setLightState(lampsCount)));
+        }
     }
 }
 
@@ -40,10 +41,10 @@ class ColorGarland extends Garland {
 
     public ColorGarland() {
 
-        for (int i = 0; i < lampsCount; i++)
-            lamps.add(new ColorLamp(Helper.setLightState(),
-                    Helper.setColor()));
-
+        for (int i = 0; i < lampsCount; i++) {
+            lamps.add(new ColorLamp(Helper.setLightState(lampsCount),
+                    Helper.setColor(lampsCount)));
+        }
     }
 }
 
@@ -61,7 +62,7 @@ class Lamp {
 }
 
 class ColorLamp extends Lamp {
-    public static String lightColor;
+
     public LightColor color;
 
     public ColorLamp(LightState state, LightColor color) {
@@ -77,34 +78,50 @@ class ColorLamp extends Lamp {
 
 class Helper {
 
-    public static LightState setLightState() {
+    private static String lightColor;
+    private static String lightState;
+
+    public static LightState setLightState(int lampsCount) {
 
         Calendar calendar = new GregorianCalendar();
         int date = calendar.get(Calendar.MINUTE);
 
-        String lightState;
+        boolean[] array1 = new boolean[lampsCount];
+
         if (date % 2 == 0) {
-            lightState = "ON";
-            return LightState.valueOf(lightState);
+
+            for (int i = 0; i < array1.length; i = i + 2) {
+                array1[i] = true;
+            }
+            for (boolean b : array1) {
+                System.out.println(b);
+            }
         }
-        lightState = "OFF";
+        if (date % 2 != 0) {
+
+            for (int i = 1; i < array1.length; i = i + 2) {
+                array1[i] = true;
+            }
+            for (boolean b : array1) {
+                System.out.println(b);
+            }
+        }
         return LightState.valueOf(lightState);
     }
 
-    public static LightColor setColor() {
-            switch (ColorLamp.lightColor) {
-                case RED:
-                    return LightColor.RED;
-                case BLUE:
-                    return LightColor.BLUE;
-                case GREEN:
-                    return LightColor.GREEN;
-                case YELLOW:
-                    return LightColor.YELLOW;
-            }
-        return null;
+    public static LightColor setColor(int lampsCount) {
+        String[] array2 = new String[lampsCount];
+        for (int i = 0; i < array2.length; i++) {
+            array2[0] = "RED";
+            array2[1] = "YELLOW";
+            array2[2] = "GREEN";
+            array2[3] = "BLUE";
+        }
+        for (String c : array2) {
+            System.out.println(c);
+        }
+        return LightColor.valueOf(lightColor);
     }
 }
-
 enum LightColor {RED, YELLOW, GREEN, BLUE}
 enum LightState {ON, OFF}
