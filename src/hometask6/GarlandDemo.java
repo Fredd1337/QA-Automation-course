@@ -77,50 +77,31 @@ class ColorLamp extends Lamp {
 }
 
 class Helper {
-
-    private static String lightColor;
-    private static String lightState;
-
     public static LightState setLightState(int lampsCount) {
 
         Calendar calendar = new GregorianCalendar();
         int date = calendar.get(Calendar.MINUTE);
 
-        boolean[] array1 = new boolean[lampsCount];
-
         if (date % 2 == 0) {
-
-            for (int i = 0; i < array1.length; i = i + 2) {
-                array1[i] = true;
-            }
-            for (boolean b : array1) {
-                System.out.println(b);
-            }
+            return LightState.ON;
         }
-        if (date % 2 != 0) {
-
-            for (int i = 1; i < array1.length; i = i + 2) {
-                array1[i] = true;
-            }
-            for (boolean b : array1) {
-                System.out.println(b);
-            }
+        else {
+            return LightState.OFF;
         }
-        return LightState.valueOf(lightState);
     }
 
     public static LightColor setColor(int lampsCount) {
-        String[] array2 = new String[lampsCount];
-        for (int i = 0; i < array2.length; i++) {
-            array2[0] = "RED";
-            array2[1] = "YELLOW";
-            array2[2] = "GREEN";
-            array2[3] = "BLUE";
-        }
-        for (String c : array2) {
-            System.out.println(c);
-        }
-        return LightColor.valueOf(lightColor);
+            switch (lampsCount){
+                case 1:
+                    return LightColor.RED;
+                case 2:
+                    return LightColor.YELLOW;
+                case 3:
+                    return LightColor.GREEN;
+                case 4:
+                    return LightColor.BLUE;
+            }
+        return null;
     }
 }
 enum LightColor {RED, YELLOW, GREEN, BLUE}
